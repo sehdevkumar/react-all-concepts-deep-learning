@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { useAuth } from "@/context/auth-context"
 import { Menu } from "lucide-react"
 
 interface HeaderProps {
@@ -6,20 +7,33 @@ interface HeaderProps {
 }
 
 export default function Header({ toggleSidebar }: HeaderProps) {
+  const { logout , isAuthenticated } = useAuth()
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
+    <header className="bg-background border-b">
+      <div className="flex w-[calc(100%-24px)] items-center justify-between py-4">
         <Button variant="ghost" size="icon" onClick={toggleSidebar}>
           <Menu className="h-6 w-6" />
         </Button>
-        <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-          <div className="w-full flex-1 md:w-auto md:flex-none">
-            <h2 className="text-lg font-semibold">React Deep Learning</h2>
-          </div>
-          <nav className="flex items-center space-x-2">
 
-          </nav>
-        </div>
+        <h2 className="text-lg font-semibold text-center">
+          React Deep Learning
+        </h2>
+
+        {
+          isAuthenticated ? (
+            <div className="flex items-center gap-2">
+              <Button variant="outline">Profile</Button>
+              <Button variant="outline" onClick={logout}>
+                Logout
+              </Button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Button variant="outline">Login</Button>
+            </div>
+          )
+        }
       </div>
     </header>
   )
