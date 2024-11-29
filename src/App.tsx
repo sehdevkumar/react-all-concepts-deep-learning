@@ -9,30 +9,29 @@ import Sidebar from "./layout/SideBar"
 function App() {
   return (
     <BrowserRouter>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col h-screen overflow-hidden">
         <Header toggleSidebar={() => { }} />
 
-        <div className="flex flex-1">
+        <div className="flex flex-1" style={{height: "calc(100% - 140px)"}}>
           <Sidebar isOpen={false} onClose={() => { }} />
-          <div className="container mx-auto px-4 py-8">
+          <div className="container mx-auto px-4 py-8 overflow-auto">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/*" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/ai-chat" element={<AiChat />} />
             </Routes>
-
           </div>
-
         </div>
-
+       
+       <div
+      className="flex"
+       >
         <Footer />
+
+       </div>
       </div>
     </BrowserRouter>
-
   )
-
-
-
 }
 
 export default App
